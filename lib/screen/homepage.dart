@@ -24,11 +24,12 @@ class HomePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.all(20),
               ),
-              child: Text('Screen 1', style: TextStyle(fontSize: 20)),
+              child: Text('Watch', style: TextStyle(fontSize: 20)),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FirstScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => ReccomendationScreen()),
                 );
               },
             ),
@@ -38,11 +39,11 @@ class HomePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.all(20),
               ),
-              child: Text('Screen 2', style: TextStyle(fontSize: 20)),
+              child: Text('Post', style: TextStyle(fontSize: 20)),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SecondScreen()),
+                  MaterialPageRoute(builder: (context) => PostScreen()),
                 );
               },
             ),
@@ -52,39 +53,12 @@ class HomePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.all(20),
               ),
-              child: Text('Screen 3', style: TextStyle(fontSize: 20)),
+              child:
+                  Text('Create a Fundraiser', style: TextStyle(fontSize: 20)),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ThirdScreen()),
-                );
-              },
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              //Second Button
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(20),
-              ),
-              child: Text('Screen 4', style: TextStyle(fontSize: 20)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FourthScreen()),
-                );
-              },
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              //Second Button
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(20),
-              ),
-              child: Text('Screen 5', style: TextStyle(fontSize: 20)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FifthScreen()),
+                  MaterialPageRoute(builder: (context) => FundraiserScreen()),
                 );
               },
             ),
