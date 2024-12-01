@@ -14,7 +14,6 @@ class PostScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            // Text input area on the left
             Expanded(
               flex: 2,
               child: Column(
@@ -36,15 +35,12 @@ class PostScreen extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(
-                      height: 16), // Spacer between the description and button
+                  SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      // Handle the action for the button, e.g., submit the post
                       final title = _titleController.text;
                       final description = _descriptionController.text;
 
-                      // Show a dialog to confirm the submission
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -73,18 +69,15 @@ class PostScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 16), // Spacer between the textboxes and the button
-            // "+" button in the middle
+            SizedBox(width: 16),
             Expanded(
               flex: 1,
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    // Handle post creation logic here
                     final title = _titleController.text;
                     final description = _descriptionController.text;
 
-                    // For demonstration, show a simple dialog
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(

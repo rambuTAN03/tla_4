@@ -5,6 +5,6 @@ import 'package:midterm_project/screen/loginscreen.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: LoginScreen(),
+    home: HomePage(),
   ));
 }

@@ -63,7 +63,6 @@ class LoginScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => HomePage()),
                       );
                     } else {
-                      // Show error message
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                             content:
@@ -74,9 +73,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 TextButton(
-                  onPressed: () {
-                    // Navigate to registration screen
-                  },
+                  onPressed: () {},
                   child: Text('Don\'t have an account? Sign Up'),
                 ),
               ],
