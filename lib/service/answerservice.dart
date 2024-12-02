@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:mastermind/models/answer.dart';
+import 'package:mastermind_finals/service/models/answer.dart';
 import 'package:riverpod/riverpod.dart';
 
 class AnswerService {
@@ -9,7 +9,7 @@ class AnswerService {
 
   AnswerService(this.container);
 
-  void createAnswer() {
+  void createAnswers() {
     List<int> _pattern = [0, 0, 0, 0];
     int copies = 1;
     int min = 1;

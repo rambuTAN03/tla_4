@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mastermind_finals/screen/global_providers.dart';
+import 'package:riverpod/riverpod.dart';
+import 'package:mastermind_finals/global_providers.dart';
+import 'package:mastermind_finals/service/models/answer.dart';
+import 'dart:io';
 
 class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final counterList = useState([1, 2, 3, 4]);
+    final container = ProviderContainer();
+    final answerService = container.read(answerServiceProvider);
+    answerService.createAnswers();
+    answerService.viewAnswer();
 
     void addCounter(int position) {
-      if (position == 0) {
-        if (counterList.value[0] == 9) {
-          counterList.value[0] = 0;
-        } else {
-          counterList.value[0] += 1;
-        }
-      } else if (position == 1) {
-      } else if (position == 2) {
-      } else {}
+      if (counterList.value[position] == 8) {
+        counterList.value = [...counterList.value];
+        counterList.value[position] = 1;
+      } else {
+        counterList.value = [...counterList.value];
+        counterList.value[position]++;
+      }
+    }
+
+    void subCounter(int position) {
+      if (counterList.value[position] == 1) {
+        counterList.value = [...counterList.value];
+        counterList.value[position] = 8;
+      } else {
+        counterList.value = [...counterList.value];
+        counterList.value[position]--;
+      }
     }
 
     return MaterialApp(
@@ -180,6 +197,7 @@ class HomePage extends HookWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          subCounter(0);
                           print("ok");
                         },
                         child: Text(
@@ -210,7 +228,8 @@ class HomePage extends HookWidget {
                     children: <Widget>[
                       ElevatedButton(
                         onPressed: () {
-                          print("ok");
+                          addCounter(1);
+                          print(counterList.value[1]);
                         },
                         child: Text(
                           "up",
@@ -259,6 +278,7 @@ class HomePage extends HookWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          subCounter(1);
                           print("ok");
                         },
                         child: Text(
@@ -289,7 +309,8 @@ class HomePage extends HookWidget {
                     children: <Widget>[
                       ElevatedButton(
                         onPressed: () {
-                          print("ok");
+                          addCounter(2);
+                          print(counterList.value[2]);
                         },
                         child: Text(
                           "up",
@@ -338,6 +359,7 @@ class HomePage extends HookWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          subCounter(2);
                           print("ok");
                         },
                         child: Text(
@@ -368,7 +390,8 @@ class HomePage extends HookWidget {
                     children: <Widget>[
                       ElevatedButton(
                         onPressed: () {
-                          print("ok");
+                          addCounter(3);
+                          print(counterList.value[3]);
                         },
                         child: Text(
                           "up",
@@ -417,6 +440,7 @@ class HomePage extends HookWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          subCounter(3);
                           print("ok");
                         },
                         child: Text(
@@ -459,6 +483,7 @@ class HomePage extends HookWidget {
               child: Expanded(
                 child: ElevatedButton(
                   onPressed: () {
+                    answerService.viewAnswer();
                     print("ok");
                   },
                   child: Text(

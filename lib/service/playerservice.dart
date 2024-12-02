@@ -1,4 +1,4 @@
-import 'package:mastermind/models/player.dart';
+import 'package:mastermind_finals/service/models/player.dart';
 import 'package:riverpod/riverpod.dart';
 
 class PlayerService {
