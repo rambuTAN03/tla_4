@@ -19,6 +19,9 @@ dependencies:
   riverpod: 2.5.1
   cupertino_icons: ^1.0.8
   cached_network_image: ^3.2.1
+  audioplayers: ^0.20.1
+  audio_service: ^0.18.0
+  just_audio: ^0.9.0  
 
 # Dev dependencies for testing and linting
 dev_dependencies:
@@ -29,6 +32,10 @@ dev_dependencies:
 # Flutter-specific settings
 flutter:
   uses-material-design: true
+  assets:
+    - assets/audio/counter.mp3
+    - assets/audio/up_down.mp3
+    - assets/audio/win.mp3
 
   # Fonts used in the project
   fonts:

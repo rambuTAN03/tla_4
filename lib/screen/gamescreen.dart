@@ -2,37 +2,90 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mastermind_finals/screen/global_providers.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:mastermind_finals/global_providers.dart';
+import 'package:mastermind_finals/screen/global_providers.dart';
 import 'package:mastermind_finals/service/models/answer.dart';
 import 'dart:io';
+import 'package:mastermind_finals/screen/winscreen.dart';
 
-class HomePage extends HookWidget {
+class GameScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final counterList = useState([1, 2, 3, 4]);
+    final counterList = useState([0, 0, 0, 0]);
+    final answerList = useState([0, 0, 0, 0]);
     final container = ProviderContainer();
     final answerService = container.read(answerServiceProvider);
+    int test = 1;
+
     answerService.createAnswers();
     answerService.viewAnswer();
+    final Answer pattern = answerService.assignPattern();
 
-    void addCounter(int position) {
-      if (counterList.value[position] == 8) {
-        counterList.value = [...counterList.value];
-        counterList.value[position] = 1;
+    void checkPattern() {
+      int correctColorandPosition = 0;
+      if (counterList.value[0] == answerList.value[0]) {
+        correctColorandPosition++;
+      }
+      if (counterList.value[1] == answerList.value[1]) {
+        correctColorandPosition++;
+      }
+      if (counterList.value[2] == answerList.value[2]) {
+        correctColorandPosition++;
+      }
+      if (counterList.value[3] == answerList.value[3]) {
+        correctColorandPosition++;
+      }
+
+      if (correctColorandPosition == 4) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => WinScreen()));
       } else {
-        counterList.value = [...counterList.value];
-        counterList.value[position]++;
+        print("Mali");
       }
     }
 
-    void subCounter(int position) {
-      if (counterList.value[position] == 1) {
-        counterList.value = [...counterList.value];
-        counterList.value[position] = 8;
-      } else {
-        counterList.value = [...counterList.value];
-        counterList.value[position]--;
+    void addCounter(int position) {
+      if (counterList.value[0] == 0 &&
+          counterList.value[1] == 0 &&
+          counterList.value[2] == 0 &&
+          counterList.value[3] == 0) {
+        answerList.value[0] = pattern.first;
+        answerList.value[1] = pattern.second;
+        answerList.value[2] = pattern.third;
+        answerList.value[3] = pattern.fourth;
       }
+      if (counterList.value[position] == 8) {
+        final newCounter = List<int>.from(counterList.value);
+        newCounter[position] = 1;
+        counterList.value = newCounter;
+      } else {
+        final newCounter = List<int>.from(counterList.value);
+        newCounter[position]++;
+        counterList.value = newCounter;
+      }
+      print(answerList);
+    }
+
+    void subCounter(int position) {
+      if (counterList.value[0] == 0 &&
+          counterList.value[1] == 0 &&
+          counterList.value[2] == 0 &&
+          counterList.value[3] == 0) {
+        answerList.value[0] = pattern.first;
+        answerList.value[1] = pattern.second;
+        answerList.value[2] = pattern.third;
+        answerList.value[3] = pattern.fourth;
+      }
+      if (counterList.value[position] == 1 ||
+          counterList.value[position] == 0) {
+        final newCounter = List<int>.from(counterList.value);
+        newCounter[position] = 8;
+        counterList.value = newCounter;
+      } else {
+        final newCounter = List<int>.from(counterList.value);
+        newCounter[position]--;
+        counterList.value = newCounter;
+      }
+      print(answerList);
     }
 
     return MaterialApp(
@@ -44,7 +97,7 @@ class HomePage extends HookWidget {
           children: <Widget>[
             Center(
               child: Text(
-                "Mastermind",
+                "MASTERMIND",
                 style: TextStyle(
                   color: const Color.fromARGB(255, 43, 91, 16),
                   fontFamily: 'PixelifySans',
@@ -78,7 +131,7 @@ class HomePage extends HookWidget {
                           ),
                         ),
                       ),
-                      Expanded(
+                      Center(
                         child: Align(
                           alignment: Alignment.center, // Center the "0"
                           child: Text(
@@ -86,7 +139,7 @@ class HomePage extends HookWidget {
                             style: TextStyle(
                               color: const Color.fromARGB(255, 43, 91, 16),
                               fontFamily: 'PixelifySans',
-                              fontSize: 100, // Large font to fill the space
+                              fontSize: 75, // Large font to fill the space
                             ),
                             textAlign:
                                 TextAlign.center, // Ensure the text is centered
@@ -119,7 +172,7 @@ class HomePage extends HookWidget {
                           ),
                         ),
                       ),
-                      Expanded(
+                      Center(
                         child: Align(
                           alignment: Alignment.center, // Center the "0"
                           child: Text(
@@ -127,7 +180,7 @@ class HomePage extends HookWidget {
                             style: TextStyle(
                               color: const Color.fromARGB(255, 43, 91, 16),
                               fontFamily: 'PixelifySans',
-                              fontSize: 100, // Large font to fill the space
+                              fontSize: 75, // Large font to fill the space
                             ),
                             textAlign:
                                 TextAlign.center, // Ensure the text is centered
@@ -144,82 +197,78 @@ class HomePage extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      // Increment Button
                       ElevatedButton(
                         onPressed: () {
-                          addCounter(0);
+                          print(test);
+                          test++;
+                          addCounter(
+                              0); // Increment the first counter in the list
                           print(counterList.value[0]);
                         },
                         child: Text(
-                          "up",
+                          "Up",
                           style: TextStyle(
-                            color: const Color.fromARGB(255, 43, 91, 16),
+                            color: Color.fromARGB(255, 43, 91, 16),
                             fontFamily: 'PixelifySans',
                             fontSize: 25,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Colors.black, // Set the background color to black
-                          // Set text color (optional, already set in Text)
+                          backgroundColor: Colors.black,
                         ).copyWith(
-                          // Disable hover effects
-                          elevation: MaterialStateProperty.all(
-                              0), // No shadow on hover
-                          overlayColor: MaterialStateProperty.all(Colors
-                              .transparent), // No hover effect color change
-                          splashFactory:
-                              NoSplash.splashFactory, // Disable splash effect
+                          elevation: MaterialStateProperty.all(0),
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          splashFactory: NoSplash.splashFactory,
                         ),
                       ),
+                      // Counter Display Container
                       Container(
                         width: 75,
                         height: 75,
                         decoration: BoxDecoration(
                           color: Colors.black,
                           border: Border.all(
-                            color: const Color.fromARGB(255, 43, 91, 16),
+                            color: Color.fromARGB(255, 43, 91, 16),
                             width: 5,
                           ),
                         ),
                         child: Center(
                           child: Text(
-                            "${counterList.value[0]}",
+                            "${counterList.value[0]}", // Display the counter value
                             style: TextStyle(
-                              color: const Color.fromARGB(255, 43, 91, 16),
+                              color: Color.fromARGB(255, 43, 91, 16),
                               fontFamily: 'PixelifySans',
-                              fontSize: 45, // Large font to fill the space
+                              fontSize: 45,
                             ),
-                            textAlign:
-                                TextAlign.center, // Ensure the text is centered
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
+                      // Decrement Button
                       ElevatedButton(
                         onPressed: () {
-                          subCounter(0);
-                          print("ok");
+                          subCounter(
+                              0); // Decrement the first counter in the list
                         },
                         child: Text(
-                          "down",
+                          "Down",
                           style: TextStyle(
-                            color: const Color.fromARGB(255, 43, 91, 16),
+                            color: Color.fromARGB(255, 43, 91, 16),
                             fontFamily: 'PixelifySans',
                             fontSize: 25,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Colors.black, // Set the background color to black
-                          // Set text color (optional, already set in Text)
+                          backgroundColor: Colors.black,
                         ).copyWith(
-                          // Disable hover effects
-                          elevation: MaterialStateProperty.all(
-                              0), // No shadow on hover
-                          overlayColor: MaterialStateProperty.all(Colors
-                              .transparent), // No hover effect color change
-                          splashFactory:
-                              NoSplash.splashFactory, // Disable splash effect
+                          elevation: MaterialStateProperty.all(0),
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          splashFactory: NoSplash.splashFactory,
                         ),
                       ),
                     ],
@@ -279,7 +328,6 @@ class HomePage extends HookWidget {
                       ElevatedButton(
                         onPressed: () {
                           subCounter(1);
-                          print("ok");
                         },
                         child: Text(
                           "down",
@@ -360,7 +408,6 @@ class HomePage extends HookWidget {
                       ElevatedButton(
                         onPressed: () {
                           subCounter(2);
-                          print("ok");
                         },
                         child: Text(
                           "down",
@@ -441,7 +488,6 @@ class HomePage extends HookWidget {
                       ElevatedButton(
                         onPressed: () {
                           subCounter(3);
-                          print("ok");
                         },
                         child: Text(
                           "down",
@@ -471,43 +517,88 @@ class HomePage extends HookWidget {
               ),
             ),
             Container(
-              width: 175,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(
-                  color: const Color.fromARGB(255, 43, 91, 16),
-                  width: 5,
-                ),
-              ),
-              child: Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    answerService.viewAnswer();
-                    print("ok");
-                  },
-                  child: Text(
-                    "QUIT",
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 43, 91, 16),
-                      fontFamily: 'PixelifySans',
-                      fontSize: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    width: 175,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 43, 91, 16),
+                        width: 5,
+                      ),
+                    ),
+                    child: Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          checkPattern();
+                        },
+                        child: Text(
+                          "PASS",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 43, 91, 16),
+                            fontFamily: 'PixelifySans',
+                            fontSize: 50,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Colors.black, // Set the background color to black
+                          // Set text color (optional, already set in Text)
+                        ).copyWith(
+                          // Disable hover effects
+                          elevation: MaterialStateProperty.all(
+                              0), // No shadow on hover
+                          overlayColor: MaterialStateProperty.all(Colors
+                              .transparent), // No hover effect color change
+                          splashFactory:
+                              NoSplash.splashFactory, // Disable splash effect
+                        ),
+                      ),
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Colors.black, // Set the background color to black
-                    // Set text color (optional, already set in Text)
-                  ).copyWith(
-                    // Disable hover effects
-                    elevation:
-                        MaterialStateProperty.all(0), // No shadow on hover
-                    overlayColor: MaterialStateProperty.all(
-                        Colors.transparent), // No hover effect color change
-                    splashFactory:
-                        NoSplash.splashFactory, // Disable splash effect
+                  Container(
+                    width: 175,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 43, 91, 16),
+                        width: 5,
+                      ),
+                    ),
+                    child: Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          answerService.viewAnswer();
+                        },
+                        child: Text(
+                          "QUIT",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 43, 91, 16),
+                            fontFamily: 'PixelifySans',
+                            fontSize: 50,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Colors.black, // Set the background color to black
+                          // Set text color (optional, already set in Text)
+                        ).copyWith(
+                          // Disable hover effects
+                          elevation: MaterialStateProperty.all(
+                              0), // No shadow on hover
+                          overlayColor: MaterialStateProperty.all(Colors
+                              .transparent), // No hover effect color change
+                          splashFactory:
+                              NoSplash.splashFactory, // Disable splash effect
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ],

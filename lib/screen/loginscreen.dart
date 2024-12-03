@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mastermind_finals/screen/homepage.dart';
+import 'package:mastermind_finals/screen/gamescreen.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();

@@ -33,10 +33,10 @@ class AnswerService {
       }
 
       var answer = Answer(
-        _pattern[0].toString(),
-        _pattern[1].toString(),
-        _pattern[2].toString(),
-        _pattern[3].toString(),
+        _pattern[0],
+        _pattern[1],
+        _pattern[2],
+        _pattern[3],
       );
 
       _answers.add(answer);

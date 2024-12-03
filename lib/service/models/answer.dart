@@ -1,8 +1,8 @@
 class Answer {
-  String first;
-  String second;
-  String third;
-  String fourth;
+  int first;
+  int second;
+  int third;
+  int fourth;
 
   Answer(this.first, this.second, this.third, this.fourth);
 
