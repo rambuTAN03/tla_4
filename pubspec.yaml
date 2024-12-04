@@ -36,6 +36,9 @@ flutter:
     - assets/audio/counter.mp3
     - assets/audio/up_down.mp3
     - assets/audio/win.mp3
+    - assets/audio/game_over.mp3
+    - assets/audio/before_counter.mp3
+    - assets/audio/game_start.mp3
 
   # Fonts used in the project
   fonts:
